@@ -10,14 +10,21 @@
  * *******
  * ||| <- Trunk
  */
+import java.util.Random;
 public class HolidayArt {
 
     public static void main(String[] args) {
-        // TODO: Parse command-line argument for tree height (default: 5)
         int height = 5;
-
-        // TODO: Print the tree
+        if (args.length > 0) {
+            try {
+                height = Integer.parseInt(args[0]);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid height argument. Using default height of 5.");
+            }
+        }
         printTree(height);
+
+        System.out.println("\nHappy Holidays!");
     }
 
     /**
@@ -26,15 +33,27 @@ public class HolidayArt {
      * @param height Number of branch levels (not including star and trunk)
      */
     public static void printTree(int height) {
-        // TODO: Implement this method
-        //
-        // Steps:
-        // 1. Print the star on top (centered)
-        // 2. Loop through each level of branches
-        // - Calculate spaces needed for centering
-        // - Calculate stars needed (1, 3, 5, 7, ...)
-        // 3. Print the trunk (centered)
-
-        System.out.println("Implement me!");
+        int spaces = height;
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < spaces - i - 1; j++) {
+                System.out.print(" ");
+            }
+            for (int k = 0; k < (2 * i + 1); k++) {
+                Random random = new Random();
+                int randNum = random.nextInt(100);
+                if (randNum % 6 == 0) {
+                    System.out.print("o");
+                } else if (randNum % 10 == 0) {
+                    System.out.print("O");
+                } else {
+                    System.out.print("*");
+                }
+            }
+            System.out.println();
+        }
+        for (int i = 0; i < spaces - 2; i++) {
+            System.out.print(" ");
+        }
+        System.out.println("|||");
     }
 }
